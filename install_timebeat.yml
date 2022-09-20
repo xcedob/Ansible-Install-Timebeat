@@ -1,0 +1,6 @@
+- name: install timebeat conf
+  hosts: all
+  roles:
+    - base_install_timebeat
+  become: yes
+  gather_facts: yes

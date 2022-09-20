@@ -1,0 +1,84 @@
+
+#              ______ _                   __                  __
+#             /_  __/(_)____ ___   ___   / /_   ___   ____ _ / /_
+#              / /  / // __ `__ \ / _ \ / __ \ / _ \ / __ `// __/
+#             / /  / // / / / / //  __// /_/ //  __// /_/ // /_
+#            /_/  /_//_/ /_/ /_/ \___//_.___/ \___/ \__,_/ \__/
+
+################### Timebeat Configuration AREA #########################
+
+timebeat:
+
+  license.keyfile: '/etc/timebeat/timebeat.lic'
+
+  clock_sync:
+
+
+    adjust_clock: false
+
+    step_limit: 5m
+
+    primary_clocks:
+
+      - protocol:      ntp
+        ip:            'your ip'  # You can also use name formate e.g: time.server.coma
+        pollinterval:  300s # Values tested: 500ms, 1s, 2s, 4s and 8s  # 4s is recommended for public NTP servers
+        monitor_only:  false
+
+
+    external_devices:
+
+
+    ptpsquared:
+
+
+    taas:
+
+    advanced:
+
+      steering:
+
+      interference_monitor:
+        backoff_timer: 5m
+
+      extended_step_limits:
+
+      windows_specific:
+
+      linux_specific:
+
+      ptp_tuning:
+
+      cli:
+
+#tags: ["service-X"]
+
+setup.dashboards.enabled: false
+
+output.elasticsearch:
+  hosts: ["elkhost"] # insert ip address of your elastic server
+  username: 'timebeat'
+  password: ''
+
+setup.ilm.enabled: false
+
+setup.ilm.policy_name: "timebeat"
+
+setup.ilm.check_exists: false
+
+setup.ilm.rollover_alias: "timebeat"
+
+logging.to_files: false
+logging.files:
+  path: /var/log/timebeat
+  name: timebeat
+  rotateeverybytes: 10485760 # = 10MB
+  keepfiles: 7
+  permissions: 0600
+
+seccomp.enabled: false
+
+monitoring.enabled: true
+
+monitoring.elasticsearch:
+  hosts: ["elkhost"]

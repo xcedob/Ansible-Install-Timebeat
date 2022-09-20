@@ -1,0 +1,16 @@
+- name: Install the timebeat rpm from a remote repo
+  yum:
+    name: https://server/timebeat-1.4.4-x86_64.rpm
+    state: present
+
+- name: Add License
+  template:
+    src: timebeat.lic
+    dest: /etc/timebeat/
+    mode: 0644
+
+- name: Add conf
+  template:
+    src: timebeat.yml
+    dest: /etc/timebeat/
+    mode: 0644
